@@ -12,6 +12,7 @@ class FileExtractor
 	constructor : (@extract_types) ->
 	
 	extract : (directory) =>
+		@top = directory
 		@files = []
 		@readDirectory(directory)
 		@files
@@ -34,7 +35,9 @@ class FileExtractor
 		if not @extract_types? || @extract_types.indexOf(extension) > -1
 			@files.push
 				path : file
+				relative_path : path.relative(@top, file)
 				base : path.dirname(file)
+				relative_base : path.relative(@top, path.dirname(file))
 				name : path.basename(file, extension)
 				extension : extension
 
@@ -56,10 +59,14 @@ class DirectoryReader
 	constructor : (@extract_types) ->
 		
 	toJson : (directory) =>
+		@top = directory
 		extractor = new FileExtractor(@extract_types)
 		
 		files = extractor.extract(directory)
-		json = {}
+		json = 
+			__INFO__ : 
+				path : directory
+				relative_path : '/'
 		
 		for file in files
 			dirs = path.relative(directory, file.path).split(path.sep)
@@ -73,6 +80,7 @@ class DirectoryReader
 					current[dir] = 
 						__INFO__ : 
 							path : path.join(currentPath, dir)
+							relative_path : path.relative(@top, path.join(currentPath, dir))
 				current = current[dir]
 				currentPath = path.join(currentPath, dir)
 				

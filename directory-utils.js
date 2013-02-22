@@ -29,6 +29,7 @@
     }
 
     FileExtractor.prototype.extract = function(directory) {
+      this.top = directory;
       this.files = [];
       this.readDirectory(directory);
       return this.files;
@@ -59,7 +60,9 @@
       if (!(this.extract_types != null) || this.extract_types.indexOf(extension) > -1) {
         return this.files.push({
           path: file,
+          relative_path: path.relative(this.top, file),
           base: path.dirname(file),
+          relative_base: path.relative(this.top, path.dirname(file)),
           name: path.basename(file, extension),
           extension: extension
         });
@@ -96,9 +99,15 @@
 
     DirectoryReader.prototype.toJson = function(directory) {
       var current, currentPath, dir, dirs, extractor, file, files, json, _i, _j, _len, _len1, _ref;
+      this.top = directory;
       extractor = new FileExtractor(this.extract_types);
       files = extractor.extract(directory);
-      json = {};
+      json = {
+        __INFO__: {
+          path: directory,
+          relative_path: '/'
+        }
+      };
       for (_i = 0, _len = files.length; _i < _len; _i++) {
         file = files[_i];
         dirs = path.relative(directory, file.path).split(path.sep);
@@ -110,7 +119,8 @@
           if (!(current[dir] != null)) {
             current[dir] = {
               __INFO__: {
-                path: path.join(currentPath, dir)
+                path: path.join(currentPath, dir),
+                relative_path: path.relative(this.top, path.join(currentPath, dir))
               }
             };
           }

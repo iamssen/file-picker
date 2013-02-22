@@ -1,7 +1,7 @@
 {
 	"name": "directory-utils",
 	"author": "SSen <i@ssen.name>",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Directory Utils",
 	"tags" : [ "directory", "util", "folder" ],
 	"license" : "MIT",
