@@ -1,0 +1,20 @@
+{
+	"name": "directory-utils",
+	"author": "SSen <i@ssen.name>",
+	"version": "1.0.0",
+	"description": "Directory Utils",
+	"tags" : [ "directory", "util", "folder" ],
+	"license" : "MIT",
+	"engines" : [ "node >= 0.8" ],
+	"main" : "./directory-utils",
+	"repository" : {
+		"type" : "git",
+		"url" : "https://github.com/iamssen/directory-utils.git"
+	},
+	"bugs" : {
+		"url" : "https://github.com/iamssen/directory-utils/issues"
+	},
+	"devDependencies": {
+		"coffee-script": "*"
+	}
+}
