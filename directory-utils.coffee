@@ -1,5 +1,6 @@
 fs = require('fs')
 path = require('path')
+unorm = require('unorm')
 
 ###
 catch all files of match types in some directory and children directories
@@ -31,14 +32,20 @@ class FileExtractor
 				
 	readFile : (file) =>
 		extension = path.extname(file)
+		ufile = unorm.nfc(file)
+		
+		# console.log(file)
+		# console.log(new Buffer(file).toString('hex'))
+		# console.log(ufile)
+		# console.log(new Buffer(ufile).toString('hex'))
 		
 		if not @extract_types? || @extract_types.indexOf(extension) > -1
 			@files.push
-				path : file
-				relative_path : path.relative(@top, file)
-				base : path.dirname(file)
-				relative_base : path.relative(@top, path.dirname(file))
-				name : path.basename(file, extension)
+				path : ufile
+				relative_path : unorm.nfc(path.relative(@top, file))
+				base : path.dirname(ufile)
+				relative_base : unorm.nfc(path.relative(@top, path.dirname(file)))
+				name : unorm.nfc(path.basename(file, extension))
 				extension : extension
 
 ###
