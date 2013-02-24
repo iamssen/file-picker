@@ -1,11 +1,12 @@
+# mac
+.DS_Store
+# eclipse
+.project
+# node
+*.log
+node_modules
+# coffee
+*.coffee
+# git
 .git
 .gitignore
-.DS_Store
-
-*.log
-
-.project
-
-node_modules
-
-*.coffee

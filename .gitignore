@@ -1,16 +1,7 @@
-lib-cov
-*.seed
-*.log
-*.csv
-*.dat
-*.out
-*.pid
-*.gz
-
-pids
-logs
-results
-
-node_modules
-
+# mac
+.DS_Store
+# eclipse
 .project
+# node
+*.log
+node_modules
