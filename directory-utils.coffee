@@ -10,7 +10,10 @@ catch all files of match types in some directory and children directories
 ]
 ###
 class FileExtractor
-	constructor : (@extract_types) ->
+	constructor : (types) ->
+		@extract_types = []
+		for type in types
+			@extract_types.push(type.toLowerCase())
 	
 	extract : (directory) =>
 		@top = directory
@@ -31,7 +34,7 @@ class FileExtractor
 				@readFile(item)
 				
 	readFile : (file) =>
-		extension = path.extname(file)
+		extension = path.extname(file).toLowerCase()
 		ufile = unorm.nfc(file)
 		
 		# console.log(file)

@@ -20,14 +20,19 @@
 
   FileExtractor = (function() {
 
-    function FileExtractor(extract_types) {
-      this.extract_types = extract_types;
+    function FileExtractor(types) {
       this.readFile = __bind(this.readFile, this);
 
       this.readDirectory = __bind(this.readDirectory, this);
 
       this.extract = __bind(this.extract, this);
 
+      var type, _i, _len;
+      this.extract_types = [];
+      for (_i = 0, _len = types.length; _i < _len; _i++) {
+        type = types[_i];
+        this.extract_types.push(type.toLowerCase());
+      }
     }
 
     FileExtractor.prototype.extract = function(directory) {
@@ -58,7 +63,7 @@
 
     FileExtractor.prototype.readFile = function(file) {
       var extension, ufile;
-      extension = path.extname(file);
+      extension = path.extname(file).toLowerCase();
       ufile = unorm.nfc(file);
       if (!(this.extract_types != null) || this.extract_types.indexOf(extension) > -1) {
         return this.files.push({
