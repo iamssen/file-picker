@@ -2,16 +2,16 @@ fs = require('fs')
 path = require('path')
 unorm = require('unorm')
 
-class FileExtractor
+class FilePicker
 	directory : null
-	extract_types : null
+	pick_types : null
 	
 	extract : (callback) =>
-		if @extract_types?
+		if @pick_types?
 			types = []
-			for type in @extract_types
+			for type in @pick_types
 				types.push(type.toLowerCase())
-			@extract_types = types
+			@pick_types = types
 		
 		@top = @directory
 		@files = []
@@ -34,7 +34,7 @@ class FileExtractor
 	readFile : (file) =>
 		extension = path.extname(file).toLowerCase()
 		
-		if not @extract_types? || @extract_types.indexOf(extension) > -1
+		if not @pick_types? || @pick_types.indexOf(extension) > -1
 			@files.push
 				path : unorm.nfc(file).replace(/\\/g, '/')
 				relative_path : unorm.nfc(path.relative(@top, file)).replace(/\\/g, '/')
@@ -43,18 +43,18 @@ class FileExtractor
 				name : unorm.nfc(path.basename(file, extension))
 				extension : extension
 
-exports.extract = (args...) ->
+exports.pick = (args...) ->
 	directory = args[0]
 	if args.length is 3
-		extract_types = args[1]
+		pick_types = args[1]
 		callback = args[2]
 	else
 		callback = args[1]
 	
-	extractor = new FileExtractor
-	extractor.directory = directory
-	extractor.extract_types = extract_types
-	extractor.extract(callback)
+	picker = new FilePicker
+	picker.directory = directory
+	picker.pick_types = pick_types
+	picker.extract(callback)
 	
 exports.treefy = (files, json) ->
 	json ?= {}
@@ -73,4 +73,4 @@ exports.treefy = (files, json) ->
 	
 	json
 	
-exports.FileExtractor = FileExtractor
+exports.FilePicker = FilePicker

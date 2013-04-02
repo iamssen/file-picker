@@ -1,20 +1,20 @@
 # install
 
-	npm install file-extractor
+	npm install file-picker
 
 # api
 
-- `extract(string target_directory, [array extract_types], function callback)`
-	- `array extract_types` want array of file extension format (ex . `['.py', '.js']`)
+- `pick(string target_directory, [array pick_types], function callback)`
+	- `array pick_types` is array of file extension formats (ex . `['.py', '.js']`)
 	- `function callback` is return array of files infomation
 		- `{ string path, string relative_path, string base, string relative_base, name, extension }`
-- `object treefy(array files)` extracted files information to tree structure 
+- `object treefy(array files)` picked files information to tree structure 
 
-# extract files at a directory
+# pick files at a directory
 
-	{extract} = require('file-extractor')
+	{pick} = require('file-picker')
 	
-	extract '~/some_directory', ['.as'], (files) ->
+	pick '~/some_directory', ['.as'], (files) ->
 		console.log(files)
 		
 print on console
@@ -42,9 +42,9 @@ print on console
 # files to tree object
 
 	util = require('util')
-	{extract, treefy} = require('file-extractor')
+	{pick, treefy} = require('file-picker')
 	
-	extract '~/some_directory', ['.as'], (files) ->
+	pick '~/some_directory', ['.as'], (files) ->
 		console.log(util.inspect(treefy(files)))
 		
 print

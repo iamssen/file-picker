@@ -1,18 +1,18 @@
 {
-	"name": "file-extractor",
+	"name": "file-picker",
 	"author": "SSen <i@ssen.name>",
 	"version": "0.1.0",
-	"description": "extract files at a directory",
-	"tags" : [ "directory", "util", "folder", "extract", "extractor" ],
+	"description": "pick files at a directory",
+	"tags" : [ "directory", "util", "folder", "pick", "picker", "file" ],
 	"license" : "MIT",
 	"engines" : [ "node >= 0.8" ],
-	"main" : "./lib/file-extractor",
+	"main" : "./lib/file-picker",
 	"repository" : {
 		"type" : "git",
-		"url" : "https://github.com/iamssen/file-extractor.git"
+		"url" : "https://github.com/iamssen/file-picker.git"
 	},
 	"bugs" : {
-		"url" : "https://github.com/iamssen/file-extractor/issues"
+		"url" : "https://github.com/iamssen/file-picker/issues"
 	},
 	"scripts" : { 
 		"test" : "mocha" 
