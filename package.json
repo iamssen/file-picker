@@ -1,23 +1,27 @@
 {
-	"name": "directory-utils",
+	"name": "file-extractor",
 	"author": "SSen <i@ssen.name>",
-	"version": "1.0.4",
-	"description": "Directory Utils",
-	"tags" : [ "directory", "util", "folder" ],
+	"version": "0.1.0",
+	"description": "extract files at a directory",
+	"tags" : [ "directory", "util", "folder", "extract", "extractor" ],
 	"license" : "MIT",
 	"engines" : [ "node >= 0.8" ],
-	"main" : "./directory-utils",
+	"main" : "./lib/file-extractor",
 	"repository" : {
 		"type" : "git",
-		"url" : "https://github.com/iamssen/directory-utils.git"
+		"url" : "https://github.com/iamssen/file-extractor.git"
 	},
 	"bugs" : {
-		"url" : "https://github.com/iamssen/directory-utils/issues"
+		"url" : "https://github.com/iamssen/file-extractor/issues"
+	},
+	"scripts" : { 
+		"test" : "mocha" 
 	},
 	"dependencies": {
 		"unorm": ">=1.0.0"
 	},
 	"devDependencies": {
-		"coffee-script": "*"
+		"should": "*",
+		"source-map-support" : "*"
 	}
 }
