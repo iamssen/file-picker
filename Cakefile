@@ -1,16 +1,10 @@
-{exec} = require 'child_process'
+{exec} = require('bbang')
 
 task 'test', 'Test', ->
-	build ->
-		exec 'mocha --compilers coffee:coffee-script --timeout 10000 --require should', (err, stdout, stderr) ->
-			if err? then throw err
-			console.log(stdout + stderr)
+	build -> exec 'mocha --compilers coffee:coffee-script --timeout 10000 --require should'
 
 task 'build', 'Compile Coffee Script Files', ->
 	build()
 		
 build = (callback) ->
-	exec 'coffee -m -o lib/ -c src/', (err, stdout, stderr) ->
-		if err? then throw err
-		console.log(stdout + stderr)
-		callback?()
+	exec 'coffee -m -o lib/ -c src/', callback
