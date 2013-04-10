@@ -14,5 +14,6 @@ describe 'File Picking', ->
 describe 'File List To Tree', ->
 	it '.txt 파일에 대한 조회를 json 으로 바꿨을때 dir4.dir.file411 은 4 이어야 한다', ->
 		pick __dirname + '/samples', ['.txt'], (files) ->
+			console.log(files)
 			json = treefy(files)
 			json.dir4.dir.file411.should.equal(4)

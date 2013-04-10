@@ -29,9 +29,9 @@ class FilePicker
 			if stat.isDirectory()
 				@readDirectory(item)
 			else if stat.isFile()
-				@readFile(item)
+				@readFile(item, stat)
 				
-	readFile : (file) =>
+	readFile : (file, stat) =>
 		extension = path.extname(file).toLowerCase()
 		
 		if not @pick_types? || @pick_types.indexOf(extension) > -1
@@ -42,6 +42,9 @@ class FilePicker
 				relative_base : unorm.nfc(path.relative(@top, path.dirname(file))).replace(/\\/g, '/')
 				name : unorm.nfc(path.basename(file, extension))
 				extension : extension
+				atime : stat.atime.getTime()
+				mtime : stat.mtime.getTime()
+				ctime : stat.ctime.getTime()
 
 exports.pick = (args...) ->
 	directory = args[0]
