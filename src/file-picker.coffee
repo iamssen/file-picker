@@ -36,6 +36,7 @@ class FilePicker
 		
 		if not @pick_types? || @pick_types.indexOf(extension) > -1
 			@files.push
+				realpath : file
 				path : unorm.nfc(file).replace(/\\/g, '/')
 				relative_path : unorm.nfc(path.relative(@top, file)).replace(/\\/g, '/')
 				base : unorm.nfc(path.dirname(file)).replace(/\\/g, '/')
