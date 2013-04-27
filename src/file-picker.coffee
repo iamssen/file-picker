@@ -6,6 +6,8 @@ class FilePicker
 	directory : null
 	pick_types : null
 	
+	constructor : (@useUnicodeNormalize = false) ->
+	
 	extract : (callback) =>
 		if @pick_types?
 			types = []
@@ -33,15 +35,19 @@ class FilePicker
 				
 	readFile : (file, stat) =>
 		extension = path.extname(file).toLowerCase()
+		un = @useUnicodeNormalize
+		
+		nfc = (str) ->
+			return if un then unorm.nfc(str) else str 
 		
 		if not @pick_types? || @pick_types.indexOf(extension) > -1
 			@files.push
 				realpath : file
-				path : unorm.nfc(file).replace(/\\/g, '/')
-				relative_path : unorm.nfc(path.relative(@top, file)).replace(/\\/g, '/')
-				base : unorm.nfc(path.dirname(file)).replace(/\\/g, '/')
-				relative_base : unorm.nfc(path.relative(@top, path.dirname(file))).replace(/\\/g, '/')
-				name : unorm.nfc(path.basename(file, extension))
+				path : nfc(file).replace(/\\/g, '/')
+				relative_path : nfc(path.relative(@top, file)).replace(/\\/g, '/')
+				base : nfc(path.dirname(file)).replace(/\\/g, '/')
+				relative_base : nfc(path.relative(@top, path.dirname(file))).replace(/\\/g, '/')
+				name : nfc(path.basename(file, extension))
 				extension : extension
 				atime : stat.atime.getTime()
 				mtime : stat.mtime.getTime()
