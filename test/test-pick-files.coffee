@@ -17,3 +17,14 @@ describe 'File List To Tree', ->
 			console.log(files)
 			json = treefy(files)
 			json.dir4.dir.file411.should.equal(4)
+
+describe 'Multiple File Picking', ->
+	it '.txt 파일에 대한 조회 값은 4 이어야 한다', ->
+		directories = []
+		directories.push(__dirname + '/samples/dir1')
+		directories.push(__dirname + '/samples/dir2')
+		directories.push(__dirname + '/samples/dir3')
+		directories.push(__dirname + '/samples/dir4')
+
+		pick directories, ['.txt'], (files) ->
+			files.length.should.equal(4)

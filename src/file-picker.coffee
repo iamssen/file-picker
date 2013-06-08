@@ -72,9 +72,9 @@ class MultipleFilePicker
 
 	extractDirectory : =>
 		if ++@currentDirectory < @maxDirectory
-			picker.directory = @directories[@currentDirectory]
-			picker.pick_types = @pick_types
-			picker.extract (files) =>
+			@picker.directory = @directories[@currentDirectory]
+			@picker.pick_types = @pick_types
+			@picker.extract (files) =>
 				@files = @files.concat(files)
 				@extractDirectory()
 		else
