@@ -2,6 +2,8 @@
 .DS_Store
 # eclipse
 .project
+# webstorm
+.idea
 # node
 *.log
 node_modules

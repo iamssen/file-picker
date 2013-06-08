@@ -1,11 +1,12 @@
 fs = require('fs')
 path = require('path')
 unorm = require('unorm')
+util = require('util')
 
 class FilePicker
 	directory : null
 	pick_types : null
-	
+
 	constructor : (@useUnicodeNormalize = false) ->
 	
 	extract : (callback) =>
@@ -53,6 +54,32 @@ class FilePicker
 				mtime : stat.mtime.getTime()
 				ctime : stat.ctime.getTime()
 
+
+class MultipleFilePicker
+	directories : null
+	pick_types : null
+
+	constructor : (@useUnicodeNormalize = false) ->
+		@picker = new FilePicker(@useUnicodeNormalize)
+
+	extract : (@callback) =>
+		@currentDirectory = -1
+		@maxDirectory = @directories.length
+
+		@files = []
+
+		@extractDirectory()
+
+	extractDirectory : =>
+		if ++@currentDirectory < @maxDirectory
+			picker.directory = @directories[@currentDirectory]
+			picker.pick_types = @pick_types
+			picker.extract (files) =>
+				@files = @files.concat(files)
+				@extractDirectory()
+		else
+			@callback(@files)
+
 exports.pick = (args...) ->
 	directory = args[0]
 	if args.length is 3
@@ -60,11 +87,17 @@ exports.pick = (args...) ->
 		callback = args[2]
 	else
 		callback = args[1]
-	
-	picker = new FilePicker
-	picker.directory = directory
-	picker.pick_types = pick_types
-	picker.extract(callback)
+
+	if util.isArray(directory)
+		picker = new MultipleFilePicker
+		picker.directories = directory
+		picker.pick_types = pick_types
+		picker.extract(callback)
+	else
+		picker = new FilePicker
+		picker.directory = directory
+		picker.pick_types = pick_types
+		picker.extract(callback)
 	
 exports.treefy = (files, json) ->
 	json ?= {}
