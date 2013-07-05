@@ -117,3 +117,4 @@ exports.treefy = (files, json) ->
 	json
 	
 exports.FilePicker = FilePicker
+exports.MultipleFilePicker = MultipleFilePicker
