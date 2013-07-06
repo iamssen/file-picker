@@ -1,7 +1,7 @@
 {
 	"name": "file-picker",
 	"author": "SSen <i@ssen.name>",
-	"version": "0.1.6",
+	"version": "0.1.7",
 	"description": "pick files at a directory",
 	"tags" : [ "directory", "util", "folder", "pick", "picker", "file" ],
 	"license" : "MIT",
