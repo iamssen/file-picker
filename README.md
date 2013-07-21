@@ -6,16 +6,18 @@
 
 - `pick(string target_directory, [array pick_types], function callback)`
 	- `array pick_types` is array of file extension formats (ex . `['.py', '.js']`)
-	- `function callback` is return array of files infomation
-		- `{ string path, string relative_path, string base, string relative_base, name, extension }`
+	- `function callback = (files, lastModifedTime)` is return array of files infomation
+		- `array files { string path, string relative_path, string base, string relative_base, name, extension }`
+		- `int lastModifedTime`
 - `object treefy(array files)` picked files information to tree structure 
 
 # pick files at a directory
 
 	{pick} = require('file-picker')
 	
-	pick '~/some_directory', ['.as'], (files) ->
+	pick '~/some_directory', ['.as'], (files, lastModifedTime) ->
 		console.log(files)
+		console.log(lastModifedTime)
 		
 print on console
 
@@ -47,13 +49,14 @@ print on console
 		mtime: 1364912058000,
 		ctime: 1364912058000 },
 	  ....
+	1364912058000
 	  
 # files to tree object
 
 	util = require('util')
 	{pick, treefy} = require('file-picker')
 	
-	pick '~/some_directory', ['.as'], (files) ->
+	pick '~/some_directory', ['.as'], (files, lastModifedTime) ->
 		console.log(util.inspect(treefy(files)))
 		
 print
